@@ -24,17 +24,17 @@ public final class Bits {
      */
     public static byte[] shiftLeft(byte[] data, int len) {
         int shift = len % Byte.SIZE;
-        byte carry_mask = createMask(shift);
+        byte carryMask = createMask(shift);
         int offset = len / Byte.SIZE;
         for (int i = 0; i < data.length; i++) {
-            int src_index = i + offset;
-            if (src_index >= data.length) {
+            int srcIndex = i + offset;
+            if (srcIndex >= data.length) {
                 data[i] = 0;
             } else {
-                byte src = data[src_index];
+                byte src = data[srcIndex];
                 byte dst = (byte) (src << shift);
-                if (src_index + 1 < data.length) {
-                    dst |= data[src_index + 1] >>> (Byte.SIZE - shift) & carry_mask;
+                if (srcIndex + 1 < data.length) {
+                    dst |= data[srcIndex + 1] >>> (Byte.SIZE - shift) & carryMask;
                 }
                 data[i] = dst;
             }
@@ -51,17 +51,17 @@ public final class Bits {
      */
     public static byte[] shiftRight(byte[] data, int len) {
         int shift = len % Byte.SIZE;
-        byte carry_mask = (byte) (Byte.MIN_VALUE - createMask(shift));
+        byte carryMask = (byte) (Byte.MIN_VALUE - createMask(shift));
         int offset = len / Byte.SIZE;
         for (int i = data.length - 1; i >= 0; i--) {
-            int src_index = i - offset;
-            if (src_index < 0) {
+            int srcIndex = i - offset;
+            if (srcIndex < 0) {
                 data[i] = 0;
             } else {
-                byte src = data[src_index];
+                byte src = data[srcIndex];
                 byte dst = (byte) (src >> shift);
-                if (src_index + 1 < data.length) {
-                    dst |= data[src_index + 1] << (Byte.SIZE - shift) & carry_mask;
+                if (srcIndex + 1 < data.length) {
+                    dst |= data[srcIndex + 1] << (Byte.SIZE - shift) & carryMask;
                 }
                 data[i] = dst;
             }
