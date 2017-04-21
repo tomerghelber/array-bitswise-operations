@@ -26,6 +26,10 @@ public class BytesAsBitArray implements BitArray {
         this.endBit = endBit;
     }
 
+    public BytesAsBitArray(byte[] array) {
+        this(array, 0, array.length * Byte.SIZE);
+    }
+
     /* --- BitArray Impl. --- */
 
     @Override
