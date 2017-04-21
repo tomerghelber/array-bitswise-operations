@@ -1,12 +1,16 @@
 package bits;
 
-import java.util.Formatter;
+import java.util.regex.Pattern;
 
 /**
  * @author tomer
  * @since 4/21/17
  */
 public final class Bits {
+
+    /* --- Public static Members --- */
+
+    public static final Pattern BITS_REGEX = Pattern.compile("(?<=\\G[01]{8})");
 
     /* --- Constructors --- */
 
@@ -117,7 +121,7 @@ public final class Bits {
      * @return The bytes.
      */
     public static byte[] toBytes(String binaryData) {
-        String[] binariesData = binaryData.split("(?<=\\G[01]{8})");
+        String[] binariesData = BITS_REGEX.split(binaryData);
         byte[] bytes = new byte[binariesData.length];
         for(int i = 0; i < bytes.length; i++) {
             bytes[i] = toByte(binariesData[i]);
