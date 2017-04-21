@@ -43,6 +43,33 @@ public final class Bits {
     }
 
     /**
+     * Shifts input byte array len bits right.
+     * @param data The data to shift.
+     * @param len The new length of the data.
+     * @return The new data after the shift.
+     * @apiNote This method will alter the input byte array.
+     */
+    public static byte[] shiftRight(byte[] data, int len) {
+        int shift = len % Byte.SIZE;
+        byte carry_mask = (byte) (Byte.MIN_VALUE - createMask(shift));
+        int offset = len / Byte.SIZE;
+        for (int i = data.length - 1; i >= 0; i--) {
+            int src_index = i - offset;
+            if (src_index < 0) {
+                data[i] = 0;
+            } else {
+                byte src = data[src_index];
+                byte dst = (byte) (src >> shift);
+                if (src_index + 1 < data.length) {
+                    dst |= data[src_index + 1] << (Byte.SIZE - shift) & carry_mask;
+                }
+                data[i] = dst;
+            }
+        }
+        return data;
+    }
+
+    /**
      * Creates a mask for a byte.
      * @param length The length of the mask.
      * @return The mask.

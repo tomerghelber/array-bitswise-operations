@@ -32,9 +32,15 @@ class BitsTest {
         );
     }
 
-    static Stream<Arguments> dataAndShiftAndExpectedProvider() {
+    static Stream<Arguments> dataAndShiftLeftAndExpectedProvider() {
         return Stream.of(
                 ObjectArrayArguments.create(new byte[]{(byte) 0XFF, (byte)0xFF}, Byte.SIZE, new byte[]{(byte) 0XFF, (byte)0x0})
+        );
+    }
+
+    static Stream<Arguments> dataAndShiftRightAndExpectedProvider() {
+        return Stream.of(
+                ObjectArrayArguments.create(new byte[]{(byte) 0XFF, (byte)0xFF}, Byte.SIZE, new byte[]{(byte)0x0, (byte) 0XFF})
         );
     }
 
@@ -48,11 +54,18 @@ class BitsTest {
     }
 
     @ParameterizedTest
-    @MethodSource(names = "dataAndShiftAndExpectedProvider")
+    @MethodSource(names = "dataAndShiftLeftAndExpectedProvider")
     void shiftLeft(byte[] data, int len, byte[] expectedData) {
         byte[] actualData = Bits.shiftLeft(data, len);
 
         assertArrayEquals(expectedData, actualData);
     }
 
+    @ParameterizedTest
+    @MethodSource(names = "dataAndShiftRightAndExpectedProvider")
+    void shiftRight(byte[] data, int len, byte[] expectedData) {
+        byte[] actualData = Bits.shiftRight(data, len);
+
+        assertArrayEquals(expectedData, actualData);
+    }
 }
