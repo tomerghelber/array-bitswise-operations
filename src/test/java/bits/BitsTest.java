@@ -114,4 +114,22 @@ class BitsTest {
         byte actualByte = Bits.toByte(data);
         assertEquals(expectedByte, actualByte);
     }
+
+    @Test
+    void copyOf() {
+        byte[] original = new byte[]{(byte) 0x01, (byte) 0x80};
+        byte[] expected = new byte[]{(byte) 0x00};
+        byte[] actual = Bits.copyOf(original, 7);
+
+        assertArrayEquals(expected, actual, Bits.toBinaryString(expected) + "<->" + Bits.toBinaryString(actual));
+    }
+
+    @Test
+    void copyOfRange() {
+        byte[] original = new byte[]{(byte) 0x01, (byte) 0x80};
+        byte[] expected = new byte[]{(byte) 0xC0};
+        byte[] actual = Bits.copyOfRange(original, 7, 9);
+
+        assertArrayEquals(expected, actual, Bits.toBinaryString(expected) + "<->" + Bits.toBinaryString(actual));
+    }
 }

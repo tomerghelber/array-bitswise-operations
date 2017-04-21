@@ -1,8 +1,14 @@
 package bits;
 
+import java.util.Arrays;
 import java.util.regex.Pattern;
 
 /**
+ * Bits in array are looking like this:
+ * | ------------ first byte ------------ | | ------------ second byte ------------ | ...
+ *  most sagnificant ... least sagnificant   most sagnificant ... least sagnificant   ...
+ *         0         ...       7                    8         ...       15            ...
+ *
  * @author tomer
  * @since 4/21/17
  */
@@ -22,13 +28,41 @@ public final class Bits {
     /* --- Public Static Methods --- */
 
     /**
+     * Copying part of bits.
+     * @param original The data to copy from.
+     * @param newLength The new length of the data.
+     * @return The copied data
+     */
+    public static byte[] copyOf(byte[] original, int newLength) {
+        return copyOfRange(original, 0, newLength);
+    }
+
+    /**
+     * Copying part og bits.
+     * @param original The data to copy from.
+     * @param from The start place of the new data.
+     * @param to The end place of the new data.
+     * @return The copied data.
+     */
+    public static byte[] copyOfRange(byte[] original, int from, int to) {
+        int newLength = to - from;
+        int arraySize = (int) StrictMath.ceil((double) newLength / Byte.SIZE);
+        byte mask = (byte) (0xFF - createMask(newLength % Byte.SIZE));
+        byte[] shifted = shiftLeft(original, from);
+        byte[] cut = Arrays.copyOf(shifted, arraySize);
+        cut[cut.length - 1] &= mask;
+        return cut;
+
+    }
+
+    /**
      * Shifts input byte array len bits left.
-     * @param data The data to shift.
+     * @param original The data to shift.
      * @param len The new length of the data.
      * @return The new data after the shift.
-     * @apiNote This method will alter the input byte array.
      */
-    public static byte[] shiftLeft(byte[] data, int len) {
+    public static byte[] shiftLeft(byte[] original, int len) {
+        byte[] data = Arrays.copyOf(original, original.length);
         int shift = len % Byte.SIZE;
         byte carryMask = createMask(shift);
         int offset = len / Byte.SIZE;
@@ -50,12 +84,12 @@ public final class Bits {
 
     /**
      * Shifts input byte array len bits right.
-     * @param data The data to shift.
+     * @param original The data to shift.
      * @param len The new length of the data.
      * @return The new data after the shift.
-     * @apiNote This method will alter the input byte array.
      */
-    public static byte[] shiftRight(byte[] data, int len) {
+    public static byte[] shiftRight(byte[] original, int len) {
+        byte[] data = Arrays.copyOf(original, original.length);
         int shift = len % Byte.SIZE;
         byte carryMask = (byte) (0xFF - createMask(shift));
         int offset = len / Byte.SIZE;
