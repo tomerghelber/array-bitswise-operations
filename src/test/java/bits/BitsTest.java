@@ -42,8 +42,8 @@ class BitsTest {
 
     static Stream<Arguments> dataAndShiftRightAndExpectedProvider() {
         return Stream.of(
-//                ObjectArrayArguments.create(new byte[]{(byte) 0XF0}, 4, new byte[]{(byte) 0X0F}),
-//                ObjectArrayArguments.create(new byte[]{(byte) 0XF1, (byte) 0XF0}, 4, new byte[]{ (byte) 0X0F, (byte) 0X1F}),
+                ObjectArrayArguments.create(new byte[]{(byte) 0XF0}, 4, new byte[]{(byte) 0X0F}),
+                ObjectArrayArguments.create(new byte[]{(byte) 0XF1, (byte) 0XF0}, 4, new byte[]{ (byte) 0X0F, (byte) 0X1F}),
                 ObjectArrayArguments.create(new byte[]{(byte) 0XFF, (byte)0xFF}, Byte.SIZE, new byte[]{(byte)0x0, (byte) 0XFF})
         );
     }
@@ -76,7 +76,7 @@ class BitsTest {
     void shiftLeft(byte[] data, int len, byte[] expectedData) {
         byte[] actualData = Bits.shiftLeft(data, len);
 
-        assertArrayEquals(expectedData, actualData);
+        assertArrayEquals(expectedData, actualData, Bits.toBinaryString(expectedData) + "<->" + Bits.toBinaryString(actualData));
     }
 
     @ParameterizedTest
@@ -84,7 +84,7 @@ class BitsTest {
     void shiftRight(byte[] data, int len, byte[] expectedData) {
         byte[] actualData = Bits.shiftRight(data, len);
 
-        assertArrayEquals(expectedData, actualData);
+        assertArrayEquals(expectedData, actualData, Bits.toBinaryString(expectedData) + "<->" + Bits.toBinaryString(actualData));
     }
 
     @ParameterizedTest
