@@ -34,12 +34,16 @@ class BitsTest {
 
     static Stream<Arguments> dataAndShiftLeftAndExpectedProvider() {
         return Stream.of(
+                ObjectArrayArguments.create(new byte[]{(byte) 0X0F}, 4, new byte[]{(byte) 0XF0}),
+                ObjectArrayArguments.create(new byte[]{(byte) 0XF1, (byte) 0X0F}, 4, new byte[]{ (byte) 0X10, (byte) 0XF0}),
                 ObjectArrayArguments.create(new byte[]{(byte) 0XFF, (byte)0xFF}, Byte.SIZE, new byte[]{(byte) 0XFF, (byte)0x0})
         );
     }
 
     static Stream<Arguments> dataAndShiftRightAndExpectedProvider() {
         return Stream.of(
+//                ObjectArrayArguments.create(new byte[]{(byte) 0XF0}, 4, new byte[]{(byte) 0X0F}),
+//                ObjectArrayArguments.create(new byte[]{(byte) 0XF1, (byte) 0XF0}, 4, new byte[]{ (byte) 0X0F, (byte) 0X1F}),
                 ObjectArrayArguments.create(new byte[]{(byte) 0XFF, (byte)0xFF}, Byte.SIZE, new byte[]{(byte)0x0, (byte) 0XFF})
         );
     }
