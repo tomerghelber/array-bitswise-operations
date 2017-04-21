@@ -1,12 +1,14 @@
 package bits;
 
+import com.google.common.base.Preconditions;
+
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
 /**
  * Bits in array are looking like this:
  * | ------------ first byte ------------ | | ------------ second byte ------------ | ...
- *  most sagnificant ... least sagnificant   most sagnificant ... least sagnificant   ...
+ *  most significant ... least significant   most significant ... least significant   ...
  *         0         ...       7                    8         ...       15            ...
  *
  * @author tomer
@@ -45,6 +47,7 @@ public final class Bits {
      * @return The copied data.
      */
     public static byte[] copyOfRange(byte[] original, int from, int to) {
+        Preconditions.checkPositionIndexes(from, to, original.length * Byte.SIZE);
         int newLength = to - from;
         int arraySize = (int) StrictMath.ceil((double) newLength / Byte.SIZE);
         byte mask = (byte) (0xFF - createMask(newLength % Byte.SIZE));
@@ -62,6 +65,7 @@ public final class Bits {
      * @return The new data after the shift.
      */
     public static byte[] shiftLeft(byte[] original, int len) {
+        Preconditions.checkArgument(len > 0);
         byte[] data = Arrays.copyOf(original, original.length);
         int shift = len % Byte.SIZE;
         byte carryMask = createMask(shift);
@@ -89,6 +93,7 @@ public final class Bits {
      * @return The new data after the shift.
      */
     public static byte[] shiftRight(byte[] original, int len) {
+        Preconditions.checkArgument(len > 0);
         byte[] data = Arrays.copyOf(original, original.length);
         int shift = len % Byte.SIZE;
         byte carryMask = (byte) (0xFF - createMask(shift));
