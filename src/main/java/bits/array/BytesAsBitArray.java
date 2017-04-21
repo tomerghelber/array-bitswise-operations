@@ -4,6 +4,7 @@ import bits.Bits;
 import com.google.common.base.Preconditions;
 
 /**
+ * Light bit array without coping until needed.
  * @author tomer
  * @since 4/21/17
  */
@@ -43,7 +44,7 @@ public class BytesAsBitArray implements BitArray {
     }
 
     @Override
-    public BitArray cut(int from, int to) {
+    public BytesAsBitArray cut(int from, int to) {
         Preconditions.checkPositionIndexes(from, to, size());
         return new BytesAsBitArray(array, startBit + from, startBit + to);
     }
