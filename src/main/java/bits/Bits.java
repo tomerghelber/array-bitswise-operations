@@ -16,10 +16,11 @@ public final class Bits {
     /* --- Public Static Methods --- */
 
     /**
-     * Shifts input byte array len bits left.This method will alter the input byte array.
+     * Shifts input byte array len bits left.
      * @param data The data to shift.
      * @param len The new length of the data.
      * @return The new data after the shift.
+     * @apiNote This method will alter the input byte array.
      */
     public static byte[] shiftLeft(byte[] data, int len) {
         int shift = len % Byte.SIZE;
@@ -42,9 +43,9 @@ public final class Bits {
     }
 
     /**
-     *
-     * @param length
-     * @return
+     * Creates a mask for a byte.
+     * @param length The length of the mask.
+     * @return The mask.
      */
     public static byte createMask(int length) {
         return (byte) ((1 << length) - 1);
