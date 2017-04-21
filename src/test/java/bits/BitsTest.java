@@ -100,4 +100,18 @@ class BitsTest {
         String actualToString = Bits.toBinaryString(data);
         assertEquals(expectedToString, actualToString);
     }
+
+    @ParameterizedTest
+    @MethodSource(names = "dataAndToStringProvider")
+    void toByteArray(byte[] expecteBytes, String data) {
+        byte[] actualBytes = Bits.toBytes(data);
+        assertArrayEquals(expecteBytes, actualBytes);
+    }
+
+    @ParameterizedTest
+    @MethodSource(names = "byteAndToStringProvider")
+    void toByte(byte expectedByte, String data) {
+        byte actualByte = Bits.toByte(data);
+        assertEquals(expectedByte, actualByte);
+    }
 }

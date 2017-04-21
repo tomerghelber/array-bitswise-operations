@@ -101,4 +101,27 @@ public final class Bits {
     public static String toBinaryString(byte b) {
         return String.format("%8s", Integer.toBinaryString(b & 0xFF)).replace(' ', '0');
     }
+
+    /**
+     * Gets string - return the byte it represents.
+     * @param binary The represent string.
+     * @return The byte.
+     */
+    public static byte toByte(String binary) {
+        return (byte) Integer.parseUnsignedInt(binary, 2);
+    }
+
+    /**
+     * Gets a string and return the bytes it represents.
+     * @param binaryData The represent string
+     * @return The bytes.
+     */
+    public static byte[] toBytes(String binaryData) {
+        String[] binariesData = binaryData.split("(?<=\\G[01]{8})");
+        byte[] bytes = new byte[binariesData.length];
+        for(int i = 0; i < bytes.length; i++) {
+            bytes[i] = toByte(binariesData[i]);
+        }
+        return bytes;
+    }
 }
