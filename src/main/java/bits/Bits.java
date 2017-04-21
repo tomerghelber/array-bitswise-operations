@@ -1,5 +1,7 @@
 package bits;
 
+import java.util.Formatter;
+
 /**
  * @author tomer
  * @since 4/21/17
@@ -76,5 +78,27 @@ public final class Bits {
      */
     public static byte createMask(int length) {
         return (byte) ((1 << length) - 1);
+    }
+
+    /**
+     * Gets bytes - return the binary string of it
+     * @param bytes The data to convert.
+     * @return The represent string.
+     */
+    public static String toBinaryString(byte[] bytes) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (byte b: bytes) {
+            stringBuilder.append(toBinaryString(b));
+        }
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Gets byte - return the binary string of it.
+     * @param b The byte to represent.
+     * @return The represent string.
+     */
+    public static String toBinaryString(byte b) {
+        return String.format("%8s", Integer.toBinaryString(b & 0xFF)).replace(' ', '0');
     }
 }
