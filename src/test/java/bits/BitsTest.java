@@ -48,6 +48,20 @@ class BitsTest {
         );
     }
 
+    static Stream<Arguments> dataAndToStringProvider() {
+        return Stream.of(
+                ObjectArrayArguments.create(new byte[]{(byte) 0x18}, "00011000"),
+                ObjectArrayArguments.create(new byte[]{(byte) 0x01, (byte) 0x80}, "0000000110000000")
+        );
+    }
+
+    static Stream<Arguments> byteAndToStringProvider() {
+        return Stream.of(
+                ObjectArrayArguments.create((byte) 0x18, "00011000"),
+                ObjectArrayArguments.create((byte) 0x81, "10000001")
+        );
+    }
+
     /* --- Tests --- */
 
     @ParameterizedTest
@@ -71,5 +85,33 @@ class BitsTest {
         byte[] actualData = Bits.shiftRight(data, len);
 
         assertArrayEquals(expectedData, actualData);
+    }
+
+    @ParameterizedTest
+    @MethodSource(names = "dataAndToStringProvider")
+    void toBinaryString(byte[] data, String expectedToString) {
+        String actualToString = Bits.toBinaryString(data);
+        assertEquals(expectedToString, actualToString);
+    }
+
+    @ParameterizedTest
+    @MethodSource(names = "byteAndToStringProvider")
+    void toBinaryString(byte data, String expectedToString) {
+        String actualToString = Bits.toBinaryString(data);
+        assertEquals(expectedToString, actualToString);
+    }
+
+    @ParameterizedTest
+    @MethodSource(names = "dataAndToStringProvider")
+    void toByteArray(byte[] expecteBytes, String data) {
+        byte[] actualBytes = Bits.toBytes(data);
+        assertArrayEquals(expecteBytes, actualBytes);
+    }
+
+    @ParameterizedTest
+    @MethodSource(names = "byteAndToStringProvider")
+    void toByte(byte expectedByte, String data) {
+        byte actualByte = Bits.toByte(data);
+        assertEquals(expectedByte, actualByte);
     }
 }

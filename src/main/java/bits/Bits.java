@@ -1,10 +1,16 @@
 package bits;
 
+import java.util.regex.Pattern;
+
 /**
  * @author tomer
  * @since 4/21/17
  */
 public final class Bits {
+
+    /* --- Public static Members --- */
+
+    public static final Pattern BITS_REGEX = Pattern.compile("(?<=\\G[01]{8})");
 
     /* --- Constructors --- */
 
@@ -76,5 +82,50 @@ public final class Bits {
      */
     public static byte createMask(int length) {
         return (byte) ((1 << length) - 1);
+    }
+
+    /**
+     * Gets bytes - return the binary string of it
+     * @param bytes The data to convert.
+     * @return The represent string.
+     */
+    public static String toBinaryString(byte[] bytes) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (byte b: bytes) {
+            stringBuilder.append(toBinaryString(b));
+        }
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Gets byte - return the binary string of it.
+     * @param b The byte to represent.
+     * @return The represent string.
+     */
+    public static String toBinaryString(byte b) {
+        return String.format("%8s", Integer.toBinaryString(b & 0xFF)).replace(' ', '0');
+    }
+
+    /**
+     * Gets string - return the byte it represents.
+     * @param binary The represent string.
+     * @return The byte.
+     */
+    public static byte toByte(String binary) {
+        return (byte) Integer.parseUnsignedInt(binary, 2);
+    }
+
+    /**
+     * Gets a string and return the bytes it represents.
+     * @param binaryData The represent string
+     * @return The bytes.
+     */
+    public static byte[] toBytes(String binaryData) {
+        String[] binariesData = BITS_REGEX.split(binaryData);
+        byte[] bytes = new byte[binariesData.length];
+        for(int i = 0; i < bytes.length; i++) {
+            bytes[i] = toByte(binariesData[i]);
+        }
+        return bytes;
     }
 }
