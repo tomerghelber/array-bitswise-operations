@@ -65,7 +65,7 @@ public final class Bits {
      * @return The new data after the shift.
      */
     public static byte[] shiftLeft(byte[] original, int len) {
-        Preconditions.checkArgument(len > 0);
+        Preconditions.checkPositionIndex(len, len);
         byte[] data = Arrays.copyOf(original, original.length);
         int shift = len % Byte.SIZE;
         byte carryMask = createMask(shift);
@@ -93,7 +93,7 @@ public final class Bits {
      * @return The new data after the shift.
      */
     public static byte[] shiftRight(byte[] original, int len) {
-        Preconditions.checkArgument(len > 0);
+        Preconditions.checkPositionIndex(len, len);
         byte[] data = Arrays.copyOf(original, original.length);
         int shift = len % Byte.SIZE;
         byte carryMask = (byte) (0xFF - createMask(shift));
