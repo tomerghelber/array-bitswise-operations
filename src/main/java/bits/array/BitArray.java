@@ -15,4 +15,6 @@ public interface BitArray {
     }
 
     BitArray cut(int from, int to);
+
+    BitArray xor(BitArray array);
 }

@@ -1,6 +1,7 @@
-package bits.array;
+package bits.array.forwarding;
 
 import bits.Bits;
+import bits.array.BitArray;
 import com.google.common.base.Preconditions;
 
 /**
@@ -8,11 +9,9 @@ import com.google.common.base.Preconditions;
  * @author tomer
  * @since 4/21/17
  */
-public class BytesAsBitArray implements BitArray {
+public class SliceBitArray extends ForwardingBitArray {
 
     /* --- Members --- */
-
-    private final byte[] array;
 
     private final int startBit;
 
@@ -20,15 +19,11 @@ public class BytesAsBitArray implements BitArray {
 
     /* --- Constructors --- */
 
-    public BytesAsBitArray(byte[] array, int startBit, int endBit) {
-        Preconditions.checkPositionIndexes(startBit, endBit, array.length * Byte.SIZE);
-        this.array = array;
+    public SliceBitArray(BitArray array, int startBit, int endBit) {
+        super(array);
+        Preconditions.checkPositionIndexes(startBit, endBit, array.size());
         this.startBit = startBit;
         this.endBit = endBit;
-    }
-
-    public BytesAsBitArray(byte[] array) {
-        this(array, 0, array.length * Byte.SIZE);
     }
 
     /* --- BitArray Impl. --- */
@@ -40,12 +35,12 @@ public class BytesAsBitArray implements BitArray {
 
     @Override
     public byte[] toBytes() {
-        return Bits.copyOfRange(array, startBit, endBit);
+        return Bits.copyOfRange(super.toBytes(), startBit, endBit);
     }
 
     @Override
-    public BytesAsBitArray cut(int from, int to) {
+    public BitArray cut(int from, int to) {
         Preconditions.checkPositionIndexes(from, to, size());
-        return new BytesAsBitArray(array, startBit + from, startBit + to);
+        return new SliceBitArray(forwarded(), startBit + from, startBit + to);
     }
 }
