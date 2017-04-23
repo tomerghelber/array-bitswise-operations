@@ -1,15 +1,14 @@
 package bits.array.forwarding;
 
 import bits.array.BitArray;
-import com.google.common.base.Preconditions;
 
 /**
  * @author tomer
  * @since 4/21/17
  */
-public class XorBitArray extends ForwardingTwoBitArray {
+public class OrBitArray extends ForwardingTwoBitArray {
 
-    public XorBitArray(BitArray a, BitArray b) {
+    public OrBitArray(BitArray a, BitArray b) {
         super(a, b);
     }
 
@@ -18,7 +17,7 @@ public class XorBitArray extends ForwardingTwoBitArray {
         byte[] biggerBytes = getBiggerBitArray().toBytes();
         byte[] smallerBytes = getSmallerBitArray().toBytes();
         for (int i = 0; i < smallerBytes.length; i++) {
-            biggerBytes[i] ^= smallerBytes[i];
+            biggerBytes[i] |= smallerBytes[i];
         }
         return biggerBytes;
     }

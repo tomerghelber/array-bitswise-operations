@@ -17,4 +17,8 @@ public interface BitArray {
     BitArray cut(int from, int to);
 
     BitArray xor(BitArray array);
+
+    BitArray or(BitArray array);
+
+    BitArray and(BitArray array);
 }
