@@ -3,7 +3,6 @@ package bits.array.simples;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ObjectArrayArguments;
 
 import java.util.stream.Stream;
 
@@ -20,8 +19,8 @@ class BytesAsBitArrayTest {
         BytesAsBitArray array = new BytesAsBitArray(bytes);
         BytesAsBitArray cutArray = array.cut(7, 9);
         return Stream.of(
-                ObjectArrayArguments.create(array, 16),
-                ObjectArrayArguments.create(cutArray, 2)
+                Arguments.of(array, 16),
+                Arguments.of(cutArray, 2)
         );
     }
 
@@ -30,21 +29,21 @@ class BytesAsBitArrayTest {
         BytesAsBitArray array = new BytesAsBitArray(bytes);
         BytesAsBitArray cutArray = array.cut(7, 9);
         return Stream.of(
-                ObjectArrayArguments.create(array, bytes),
-                ObjectArrayArguments.create(cutArray, new byte[]{(byte)0xC0})
+                Arguments.of(array, bytes),
+                Arguments.of(cutArray, new byte[]{(byte)0xC0})
         );
     }
 
     /* --- Tests --- */
 
     @ParameterizedTest
-    @MethodSource(names = "sizeProvider")
+    @MethodSource(value = "sizeProvider")
     void size(BytesAsBitArray array, int expectedSize) {
         assertEquals(expectedSize, array.size());
     }
 
     @ParameterizedTest
-    @MethodSource(names = "bytesProvider")
+    @MethodSource(value = "bytesProvider")
     void toBytes(BytesAsBitArray array, byte[] expectedBytes) {
         assertArrayEquals(expectedBytes, array.toBytes());
     }
