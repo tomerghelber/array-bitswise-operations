@@ -18,7 +18,9 @@ public final class Bits {
 
     /* --- Public static Members --- */
 
-    public static final Pattern BITS_REGEX = Pattern.compile("(?<=\\G[01]{8})");
+    private static final Pattern BITS_REGEX = Pattern.compile("(?<=\\G[01]{8})");
+
+    public static final int BITS_IN_BYTE = 8;
 
     /* --- Constructors --- */
 
