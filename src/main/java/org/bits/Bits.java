@@ -1,4 +1,4 @@
-package bits;
+package org.bits;
 
 import com.google.common.base.Preconditions;
 
@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.regex.Pattern;
 
 /**
+ * This class is a utility class to handle bits in bytes array.
+ *
  * Bits in array are looking like this:
  * | ------------ first byte ------------ | | ------------ second byte ------------ | ...
  *  most significant ... least significant   most significant ... least significant   ...
@@ -16,11 +18,9 @@ import java.util.regex.Pattern;
  */
 public final class Bits {
 
-    /* --- Public static Members --- */
+    /* --- Constants --- */
 
-    private static final Pattern BITS_REGEX = Pattern.compile("(?<=\\G[01]{8})");
-
-    public static final int BITS_IN_BYTE = 8;
+    private static final Pattern BITS_REGEX = Pattern.compile("(?<=\\G[01]{" + Byte.SIZE + "})");
 
     /* --- Constructors --- */
 
@@ -51,6 +51,9 @@ public final class Bits {
     public static byte[] copyOfRange(byte[] original, int from, int to) {
         Preconditions.checkPositionIndexes(from, to, original.length * Byte.SIZE);
         int newLength = to - from;
+        if (newLength == 0) {
+            return new byte[0];
+        }
         int arraySize = (int) StrictMath.ceil((double) newLength / Byte.SIZE);
         byte mask = (byte) (0xFF - createMask(newLength % Byte.SIZE));
         byte[] shifted = shiftLeft(original, from);
