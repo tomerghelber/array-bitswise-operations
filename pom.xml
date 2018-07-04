@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>bits</groupId>
+    <groupId>org.bits</groupId>
     <artifactId>array-bitswise-operations</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>array-bitswise-operations</name>
@@ -28,9 +28,14 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.7</version>
+        </dependency>
+        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>23.6-jre</version>
+            <version>25.0-jre</version>
         </dependency>
 
         <!-- Tests -->
@@ -38,7 +43,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>2.15.0</version>
+            <version>2.18.3</version>
             <scope>test</scope>
         </dependency>
 
@@ -55,14 +60,14 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.0.0</version>
+            <version>5.2.0</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
-            <version>5.0.0</version>
+            <version>5.2.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

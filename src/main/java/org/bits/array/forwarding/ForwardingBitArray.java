@@ -1,7 +1,9 @@
-package bits.array.forwarding;
+package org.bits.array.forwarding;
 
-import bits.array.AbstractBitArray;
-import bits.array.BitArray;
+import org.bits.array.AbstractBitArray;
+import org.bits.array.BitArray;
+
+import java.util.function.Function;
 
 /**
  * @author tomer
@@ -13,10 +15,17 @@ public abstract class ForwardingBitArray extends AbstractBitArray {
 
     private final BitArray array;
 
+    private final Function<byte[], byte[]> manipulator;
+
     /* --- Constructors --- */
 
-    public ForwardingBitArray(BitArray array) {
+    protected ForwardingBitArray(BitArray array) {
+        this(array, Function.identity());
+    }
+
+    protected ForwardingBitArray(BitArray array, Function<byte[], byte[]> manipulator) {
         this.array = array;
+        this.manipulator = manipulator;
     }
 
      /* --- BitArray Impl. --- */
@@ -28,7 +37,7 @@ public abstract class ForwardingBitArray extends AbstractBitArray {
 
     @Override
     public byte[] toBytes() {
-        return array.toBytes();
+        return manipulator.apply(array.toBytes());
     }
 
     /* --- Protected Methods --- */

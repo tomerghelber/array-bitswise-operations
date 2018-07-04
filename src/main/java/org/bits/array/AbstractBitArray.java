@@ -1,9 +1,9 @@
-package bits.array;
+package org.bits.array;
 
-import bits.array.forwarding.AndBitArray;
-import bits.array.forwarding.OrBitArray;
-import bits.array.forwarding.SliceBitArray;
-import bits.array.forwarding.XorBitArray;
+import org.bits.array.operators.AndBitArray;
+import org.bits.array.operators.OrBitArray;
+import org.bits.array.operators.SliceBitArray;
+import org.bits.array.operators.XorBitArray;
 
 /**
  * @author tomer

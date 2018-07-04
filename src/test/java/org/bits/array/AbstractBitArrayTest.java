@@ -1,8 +1,7 @@
-package bits.array;
+package org.bits.array;
 
-import bits.array.forwarding.ForwardingBitArray;
-import bits.array.forwarding.SliceBitArray;
-import bits.array.forwarding.XorBitArray;
+import org.bits.array.operators.SliceBitArray;
+import org.bits.array.operators.XorBitArray;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -32,7 +31,7 @@ class AbstractBitArrayTest {
     void cut() {
         int size = 5;
         when(testedObject.size()).thenReturn(size);
-        assertThat(testedObject.cut(size - 1), instanceOf(SliceBitArray.class));
+        assertThat(testedObject.cut(0, size - 1), instanceOf(SliceBitArray.class));
     }
 
     @Test

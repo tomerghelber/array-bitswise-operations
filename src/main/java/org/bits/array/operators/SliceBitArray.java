@@ -1,8 +1,9 @@
-package bits.array.forwarding;
+package org.bits.array.operators;
 
-import bits.Bits;
-import bits.array.BitArray;
+import org.bits.Bits;
+import org.bits.array.BitArray;
 import com.google.common.base.Preconditions;
+import org.bits.array.forwarding.ForwardingBitArray;
 
 /**
  * Light bit array without coping until needed.
@@ -20,7 +21,7 @@ public class SliceBitArray extends ForwardingBitArray {
     /* --- Constructors --- */
 
     public SliceBitArray(BitArray array, int startBit, int endBit) {
-        super(array);
+        super(array, (bytes) -> Bits.copyOfRange(bytes, startBit, endBit));
         Preconditions.checkPositionIndexes(startBit, endBit, array.size());
         this.startBit = startBit;
         this.endBit = endBit;
@@ -34,13 +35,7 @@ public class SliceBitArray extends ForwardingBitArray {
     }
 
     @Override
-    public byte[] toBytes() {
-        return Bits.copyOfRange(super.toBytes(), startBit, endBit);
-    }
-
-    @Override
     public BitArray cut(int from, int to) {
-        Preconditions.checkPositionIndexes(from, to, size());
         return new SliceBitArray(forwarded(), startBit + from, startBit + to);
     }
 }

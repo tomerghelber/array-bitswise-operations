@@ -1,6 +1,6 @@
-package bits.array.forwarding;
+package org.bits.array.forwarding;
 
-import bits.array.BitArray;
+import org.bits.array.BitArray;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

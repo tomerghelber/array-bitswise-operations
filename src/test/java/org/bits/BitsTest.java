@@ -1,4 +1,4 @@
-package bits;
+package org.bits;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
